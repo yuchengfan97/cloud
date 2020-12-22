@@ -1,0 +1,32 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name:  cloud-config-center #注册进Eureka服务器的微服务器
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/yuchengfan97/sprincloud-config.git
+          search-paths:
+            - sprincloud-config
+          skip-ssl-validation: true
+      label: master
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka,http://localhost:7002/eureka  #集群版
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "bus-refresh"
